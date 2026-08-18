@@ -10,7 +10,16 @@ riski taşır. Sadece Python tarafındaki değişken/fonksiyon isimleri
 import sqlite3
 from pathlib import Path
 
-BaseDirectory = Path(__file__).resolve().parent
+import sys
+from pathlib import Path
+
+if getattr(sys, "frozen", False):
+    # EXE olarak çalışıyorsa EXE'nin bulunduğu klasör
+    BaseDirectory = Path(sys.executable).resolve().parent
+else:
+    # Python dosyası olarak çalışıyorsa .py dosyasının bulunduğu klasör
+    BaseDirectory = Path(__file__).resolve().parent
+
 DatabasePath = BaseDirectory / "notlar.db"
 
 
